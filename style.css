@@ -1,0 +1,31 @@
+body {
+    background-color: #000;
+    color: #fff;
+    padding: 0;
+    margin: 0;
+}
+
+/* set eyes fixed height and width  */
+.eye {
+    height: 50px;
+    width: 50px;
+}
+
+/* fixed frame size  */
+#frame {
+    height: 1000px;
+    border: 10px solid red;
+    width: 1000px;
+    position: relative;
+}
+
+
+#main-image img {
+    width: 100%;
+    height: 100%;
+}
+
+.eye,
+#eyes img {
+    position: absolute;
+}

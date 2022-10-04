@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Eye control with Mousemove</title>
+</head>
+
+<body>
+    <main id="frame">
+        <div id="main-image">
+            <img src="morty.png" alt="">
+        </div>
+        <div id="eyes">
+            <!-- set all eyes initial position -->
+            <!-- 1st image eyes  -->
+            <img class="eye" src="eye.png" style="top:257px; right:273px;" alt="">
+            <img class="eye" src="eye.png" style="top:257px; right: 373px;" alt="">
+            <!-- 2nd image eyes  -->
+            <img class="eye" src="eye.png" style="bottom:470px; left:433px;" alt="">
+            <img class="eye" src="eye.png" style="bottom:447px; left:318px;" alt="">
+        </div>
+    </main>
+    <script>
+        // action base on mouse move 
+        document.addEventListener('mousemove', e => {
+            // console.log(e);
+            //calculate mouse x,y position
+            const mouseX = e.clientX;
+            const mouseY = e.clientY;
+
+            const main_image = document.getElementById('main-image');
+            //figure rectangle position information function call
+            const rectangle = main_image.getBoundingClientRect();
+            //rectangle x,y middle point calculate
+            const main_image_rectangleX = rectangle.left + rectangle.width / 2;
+            const main_image_rectangleY = rectangle.top + rectangle.height / 2;
+
+            //calculate mouse cursor angle from main image
+            const angleDeg = angle(mouseX, mouseY, main_image_rectangleX, main_image_rectangleY);
+            console.log(angleDeg);
+
+            //set every eyes rotation angle
+            const eyes = document.querySelectorAll('.eye');
+            eyes.forEach(eye => {
+                eye.style.transform = `rotate(${90 + angleDeg}deg`;
+                // anchor.style.filter = `hue-rotate(${angleDeg}deg)`;
+            })
+
+            //calculate angle from slope
+            function angle(cx, cy, ex, ey) {
+                const dy = ey - cy;
+                const dx = ex - cx;
+                const rad = Math.atan2(dy, dx);// range (-pi,pi)
+                const deg = rad * 180 / Math.PI;
+                return deg;
+            }
+        })
+    </script>
+</body>
+
+</html>
